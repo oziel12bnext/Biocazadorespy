@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="manifest" href="{% static 'manifest.json' %}">
+  <meta name="theme-color" content="#2ecc71">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIOCAZADORES 🌿 | Registro</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f5132, #198754, #52b788);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .register-container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px 50px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #c1ffd7;
+      margin-bottom: 10px;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.4);
+    }
+
+    .logo {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      color: #a2f9b1;
+    }
+
+    p {
+      color: #eaffea;
+      margin-bottom: 25px;
+      font-size: 0.95rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input {
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    input::placeholder {
+      color: #d7ffe2;
+    }
+
+    input:focus {
+      background: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 10px #9cffba;
+    }
+
+    button {
+      background: #27ae60;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #2ecc71;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    .extra-links {
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    .extra-links a {
+      color: #a9ffcb;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .extra-links a:hover {
+      color: #d3ffe0;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <div class="logo">🌿</div>
+    <h1>Registro BIOCAZADORES</h1>
+    <p>Crea tu cuenta para comenzar a monitorear tus flores y sensores.</p>
+
+    <form method="POST" action="{% url 'register' %}">
+      {% csrf_token %}
+      <input type="text" name="nombre" placeholder="Nombre completo" required>
+      <input type="email" name="email" placeholder="Correo electrónico" required>
+      <input type="text" name="usuario" placeholder="Nombre de usuario" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+      <input type="password" name="confirm_password" placeholder="Confirmar contraseña" required>
+      <button type="submit">Crear cuenta</button>
+    </form>
+
+    <div class="extra-links">
+      <p>¿Ya tienes cuenta? <a href="{% url 'home' %}">Inicia sesión aquí</a></p>
+    </div>
+  </div>
+    <script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register("{% static 'service-worker.js' %}")
+    .then(reg => console.log('✅ Service Worker registrado:', reg.scope))
+    .catch(err => console.log('❌ Error al registrar Service Worker:', err));
+}
+</script>
+</body>
+</html>

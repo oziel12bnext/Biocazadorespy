@@ -1,0 +1,260 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="manifest" href="{% static 'manifest.json' %}">
+  <meta name="theme-color" content="#006b3f">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIOCAZADORES 🌱 | Login</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #003d1f, #00994d);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* CANVAS INTERACTIVO */
+    canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .login-container {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 50px 45px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .emoji-logo {
+      font-size: 5rem;
+      animation: floatEmoji 3s ease-in-out infinite;
+      text-shadow: 0 0 25px rgba(0, 255, 100, 0.8);
+      margin-bottom: 10px;
+    }
+
+    @keyframes floatEmoji {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #c1ffd7;
+      margin-bottom: 25px;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.4);
+    }
+
+    .input-group {
+      margin-bottom: 25px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      background: rgba(255, 255, 255, 0.25);
+      color: #fff;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    input::placeholder {
+      color: #d7ffe2;
+    }
+
+    input:focus {
+      background: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 0 10px #9cffba;
+    }
+
+    .btn {
+      width: 100%;
+      background: #27ae60;
+      border: none;
+      color: white;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background: #2ecc71;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid #c2ffc2;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .error {
+      color: #ffb3b3;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+
+    .extra-links {
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    .extra-links a {
+      color: #a9ffcb;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .extra-links a:hover {
+      color: #d3ffe0;
+    }
+
+    footer {
+      margin-top: 25px;
+      font-size: 0.8rem;
+      color: #eaffea;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- FONDO INTERACTIVO -->
+  <canvas id="bg"></canvas>
+
+  <div class="login-container">
+    <div class="emoji-logo">🌱</div>
+    <h1>Iniciar Sesión</h1>
+
+    <form id="loginForm">
+      <div class="input-group">
+        <input type="text" id="username" placeholder="Usuario" required>
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="password" placeholder="Contraseña" required>
+      </div>
+
+      <div class="error" id="errorMsg"></div>
+
+      <button type="submit" class="btn">Iniciar Sesión</button>
+      <button type="button" class="btn btn-secondary" id="registerBtn">Registrarse</button>
+    </form>
+
+    <div class="extra-links">
+      <p>¿Olvidaste tu contraseña? <a href="#">Recupérala aquí</a></p>
+    </div>
+
+    <footer>© 2025 BIOCAZADORES 🌱 | Todos los derechos reservados</footer>
+  </div>
+
+  <!-- SCRIPT FONDO INTERACTIVO -->
+  <script>
+    const canvas = document.getElementById("bg");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+
+    const particles = [];
+
+    for (let i = 0; i < 80; i++) {
+      particles.push({
+        x: Math.random() * innerWidth,
+        y: Math.random() * innerHeight,
+        size: Math.random() * 3 + 1,
+        speedX: Math.random() * 1 - 0.5,
+        speedY: Math.random() * 1 - 0.5
+      });
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+      particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if (p.x < 0 || p.x > innerWidth) p.speedX *= -1;
+        if (p.y < 0 || p.y > innerHeight) p.speedY *= -1;
+
+        ctx.fillStyle = "rgba(0,255,120,0.8)";
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = "#00ff66";
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      requestAnimationFrame(animateParticles);
+    }
+
+    animateParticles();
+
+    document.getElementById('loginForm').addEventListener('submit', function(e){
+      e.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('errorMsg');
+
+      if(username === "admin" && password === "biocazadores123"){
+        errorMsg.textContent = "";
+        window.location.href = "{% url 'dashboard' %}";
+      } else {
+        errorMsg.textContent = "Usuario o contraseña incorrectos";
+      }
+    });
+
+    document.getElementById('registerBtn').addEventListener('click', function(){
+      window.location.href = "{% url 'register' %}";
+    });
+  </script>
+
+</body>
+</html>

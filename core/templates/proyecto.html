@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto BIOCAZADORES 🌿</title>
+
+    <!-- Bootstrap y Animate.css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+
+    <style>
+        /* ------------------- FUENTES Y COLORES ------------------- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        body, p, h1, h2, h3, h4, h5, h6, li, a {
+            color: #ffffff !important;
+        }
+
+        /* ------------------- HEADER ------------------- */
+        header {
+            background: #0d0d0d;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.7);
+        }
+
+        header h1 {
+            color: #2ecc71;
+            font-weight: 700;
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #f6f6f6;
+            padding: 8px 15px;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background: #2ecc71;
+            color: #0a0a0a !important;
+            transform: scale(1.05);
+        }
+
+        /* ------------------- CONTENIDO ------------------- */
+        .container {
+            padding: 80px 15px;
+            max-width: 1200px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, rgba(34,139,34,0.7), rgba(46,204,113,0.5));
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(6px);
+            transition: all 0.4s;
+            border: 2px solid #27ae60;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px #2ecc71, 0 0 30px #27ae60;
+        }
+
+        .card h3 {
+            color: #27ae60;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        /* ------------------- BOTONES ------------------- */
+        .btn-main {
+            background: linear-gradient(to right, #2ecc71, #27ae60);
+            color: #0a0a0a !important;
+            font-weight: 600;
+            border-radius: 50px;
+            padding: 12px 30px;
+            text-decoration: none;
+            transition: all 0.4s;
+            box-shadow: 0 0 8px #27ae60;
+        }
+
+        .btn-main:hover {
+            background: linear-gradient(to right, #27ae60, #2ecc71);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 15px #2ecc71, 0 0 25px #27ae60;
+        }
+
+        /* ------------------- FORMULARIO CONTACTO ------------------- */
+        .contacto input, .contacto textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .contacto input::placeholder, .contacto textarea::placeholder {
+            color: #dddddd;
+        }
+
+        .contacto input:focus, .contacto textarea:focus {
+            outline: none;
+            box-shadow: 0 0 8px #27ae60;
+        }
+
+        /* ------------------- FOOTER ------------------- */
+        footer {
+            background: #0d0d0d;
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.7);
+        }
+
+        footer nav a {
+            color: #a0a0a0;
+            margin: 0 12px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        footer nav a:hover {
+            color: #2ecc71;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="animate__animated animate__fadeInDown">
+    <h1>BIOCAZADORES 🌿</h1>
+    <nav>
+        <ul>
+            <li><a href="{% url 'dashboard' %}">Inicio</a></li>
+            <li><a href="{% url 'proyecto' %}" class="active">Proyecto</a></li>
+            <li><a href="{% url 'sensores' %}">Sensores</a></li>
+            <li><a href="{% url 'contacto' %}">Contacto</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="container">
+    <!-- Introducción -->
+  <div class="card animate__animated animate__fadeInUp">
+    <h3>Introducción</h3>
+    <p>
+        BIOCAZADORES es un sistema de monitoreo ambiental inteligente diseñado para cuidar y analizar de manera precisa las condiciones de las plantas, en especial la <strong>Petunia</strong>. Nuestro sistema mide en tiempo real la <strong>humedad, temperatura, luz y pH del suelo</strong>, brindando alertas automáticas cuando algún parámetro se encuentra fuera de los niveles óptimos.
+    </p>
+    <p>
+        Además, los datos recopilados se muestran de manera intuitiva a través de una <strong>app móvil</strong>, permitiendo a los usuarios seguir el estado de sus plantas desde cualquier lugar. Este proyecto combina tecnología y sostenibilidad, utilizando sensores IoT conectados a microcontroladores como Arduino, mientras que la gestión y visualización de la información se realiza mediante <strong>Python/Django</strong> y tecnologías web como <strong>HTML, CSS y JavaScript</strong>.
+    </p>
+    <p>
+        BIOCAZADORES no solo facilita el cuidado de las plantas, sino que también promueve la educación ambiental y la conciencia sobre la importancia de mantener nuestras plantas saludables y nuestros entornos verdes.
+    </p>
+</div>
+
+
+    <!-- Objetivos -->
+    <div class="card animate__animated animate__fadeInUp">
+        <h3>🎯 Objetivos</h3>
+        <ul>
+            <li>Monitorear temperatura, humedad, luz y pH en tiempo real.</li>
+            <li>Enviar alertas automáticas cuando los parámetros sean críticos.</li>
+            <li>Conectar sensores a una plataforma IoT y app móvil.</li>
+            <li>Promover educación ambiental y sostenibilidad.</li>
+        </ul>
+    </div>
+
+    <!-- Tecnologías -->
+    <div class="card animate__animated animate__fadeInUp">
+        <h3>💻 Tecnologías</h3>
+        <ul class="row list-unstyled text-center">
+            <li class="col-md-3 mb-3">
+                <img src="https://cdn-icons-png.flaticon.com/512/919/919852.png" width="60" alt="Python">
+                <p>Python / Django</p>
+            </li>
+            <li class="col-md-3 mb-3">
+                <img src="https://cdn-icons-png.flaticon.com/512/919/919841.png" width="60" alt="HTML">
+                <p>HTML / CSS / JS</p>
+            </li>
+            <li class="col-md-3 mb-3">
+                <img src="https://cdn-icons-png.flaticon.com/512/906/906324.png" width="60" alt="IoT">
+                <p>Arduino / Sensores</p>
+            </li>
+            <li class="col-md-3 mb-3">
+                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968364.png" width="60" alt="Conectividad">
+                <p>MQTT / Conectividad</p>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Equipo -->
+   <div class="card animate__animated animate__fadeInUp">
+    <h3>👩‍💻 Equipo</h3>
+    <p>Nuestro equipo multidisciplinario combina experiencia en tecnología y medio ambiente para garantizar un monitoreo inteligente y efectivo de las plantas.</p>
+    <ul>
+        <li><strong>Backend Developer:</strong> Responsable del desarrollo del servidor con Python/Django, gestión de base de datos y conexión con sensores IoT.</li>
+        <li><strong>Frontend Developer:</strong> Diseña y mantiene el dashboard web usando HTML, CSS y JavaScript, asegurando una interfaz intuitiva y responsiva.</li>
+        <li><strong>Ingeniero en Electrónica / IoT:</strong> Configura y programa los sensores Arduino para medir temperatura, humedad, luz y pH del suelo.</li>
+        <li><strong>Analista Ambiental:</strong> Interpreta los datos de los sensores y genera reportes para optimizar el cuidado de las plantas.</li>
+        <li><strong>Diseñador UX/UI:</strong> Se encarga de que la experiencia del usuario sea clara, atractiva y amigable con la temática de naturaleza.</li>
+    </ul>
+    <p>Todos trabajamos juntos para ofrecer un sistema de monitoreo confiable, educativo y visualmente atractivo para el usuario final.</p>
+</div>
+
+    <!-- Petunia Inteligente -->
+    <div class="card animate__animated animate__fadeInUp">
+        <h3>🌸 Petunia Inteligente</h3>
+        <p>BIOCAZADORES monitorea una <strong>Petunia</strong> utilizando sensores para medir temperatura, humedad, luz y pH del suelo. Toda la información se envía a un <strong>dashboard web</strong> y a una <strong>app móvil</strong> para un seguimiento en tiempo real.</p>
+        <ul>
+            <li><strong>Temperatura:</strong> Mantiene la flor en su rango ideal.</li>
+            <li><strong>Humedad del suelo:</strong> Indica cuándo regar evitando exceso o sequía.</li>
+            <li><strong>Luz ambiental:</strong> Garantiza suficiente luz para fotosíntesis y coloración.</li>
+            <li><strong>pH del suelo:</strong> Evalúa si el sustrato es óptimo para absorber nutrientes.</li>
+        </ul>
+        <p><strong>Tecnologías:</strong> Arduino para los sensores, Python/Django para procesamiento y dashboard, HTML/CSS/JS para visualización.</p>
+    </div>
+
+    <!-- Información adicional -->
+    <div class="card animate__animated animate__fadeInUp">
+        <h3>Caracteristica sobre el proyecto</h3>
+        <p>La <strong>Petunia</strong> es una flor ornamental muy apreciada por su diversidad de colores y facilidad de cuidado. Gracias a nuestro sistema inteligente:</p>
+        <ul>
+            <li>Se pueden registrar los datos históricos de crecimiento y floración.</li>
+            <li>Se emiten alertas cuando la planta necesita atención inmediata.</li>
+            <li>Se optimiza el riego y la exposición a la luz, aumentando la vida útil de la planta.</li>
+            <li>Se pueden realizar experimentos ambientales para educar sobre sostenibilidad y cuidado de plantas.</li>
+        </ul>
+    </div>
+
+<footer class="animate__animated animate__fadeInUp">
+    <div class="container">
+        <h4 style="color: #2ecc71; margin-bottom: 15px;">BIOCAZADORES 🌿</h4>
+        <nav>
+            <a href="#">Inicio</a>
+            <a href="#">Proyecto</a>
+            <a href="#">Sensores</a>
+            <a href="#">Contacto</a>
+        </nav>
+        <p style="font-size:0.85rem; color:#ccc; margin-top:15px;">© 2025 BIOCAZADORES 🌿 | Innovación y tecnología al servicio de la naturaleza</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        alert('¡Gracias! Tu mensaje ha sido enviado.');
+        form.reset();
+    });
+</script>
+</body>
+</html>
