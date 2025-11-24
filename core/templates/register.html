@@ -2,14 +2,17 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <link rel="manifest" href="{% static 'manifest.json' %}">
-  <meta name="theme-color" content="#2ecc71">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BIOCAZADORES 🌿 | Registro</title>
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <title>Registro | BIOCAZADORES 🌿</title>
+
+  <!-- Manifest -->
+  <link rel="manifest" href="{% static 'manifest.json' %}">
+  <meta name="theme-color" content="#2ecc71">
+
+  <!-- Google Fonts -->
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
     * {
       margin: 0;
@@ -19,119 +22,148 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f5132, #198754, #52b788);
-      background-size: 400% 400%;
-      animation: gradientBG 10s ease infinite;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       min-height: 100vh;
-      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      /* 🌿 Foto profesional de fondo */
+      background-image: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      position: relative;
     }
 
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    /* Oscurecer fondo con efecto elegante */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(3px);
+      z-index: 0;
     }
 
     .register-container {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 40px 50px;
-      border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
       width: 100%;
       max-width: 420px;
-      text-align: center;
+
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(25px);
+      padding: 45px 40px;
+      border-radius: 22px;
+
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+
+      animation: fadeIn 0.9s ease-out;
+
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo-img {
+      width: 250px;
+      border-radius: 15px;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
     }
 
     h1 {
       font-size: 2rem;
-      color: #c1ffd7;
-      margin-bottom: 10px;
-      text-shadow: 0 3px 10px rgba(0,0,0,0.4);
-    }
-
-    .logo {
-      font-size: 3rem;
-      margin-bottom: 10px;
-      color: #a2f9b1;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #d6ffe8;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
 
     p {
-      color: #eaffea;
+      color: #eafff3;
       margin-bottom: 25px;
-      font-size: 0.95rem;
+      font-size: 1rem;
+      line-height: 1.4;
     }
 
     form {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 14px;
     }
 
     input {
-      padding: 12px;
-      border-radius: 10px;
+      padding: 14px;
+      border-radius: 12px;
       border: none;
-      outline: none;
-      font-size: 1rem;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255,255,255,0.22);
       color: #fff;
-      transition: all 0.3s ease;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.3s;
     }
 
     input::placeholder {
-      color: #d7ffe2;
+      color: #d7ffe9;
     }
 
     input:focus {
-      background: rgba(255, 255, 255, 0.3);
-      box-shadow: 0 0 10px #9cffba;
+      background: rgba(255,255,255,0.35);
+      box-shadow: 0 0 12px #8cffc4;
     }
 
     button {
-      background: #27ae60;
-      color: white;
-      border: none;
+      margin-top: 10px;
       padding: 12px;
-      border-radius: 10px;
-      font-size: 1.1rem;
-      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
+      color: white;
+
+      font-size: 1.2rem;
+      font-weight: 700;
       cursor: pointer;
-      transition: all 0.3s ease;
+
+      transition: 0.3s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
     button:hover {
-      background: #2ecc71;
+      background: linear-gradient(135deg, #3ef28c, #34c978);
       transform: translateY(-3px);
-      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
     }
 
     .extra-links {
       margin-top: 20px;
-      font-size: 0.9rem;
     }
 
     .extra-links a {
-      color: #a9ffcb;
+      color: #a7ffd0;
       text-decoration: none;
       font-weight: 600;
-      transition: color 0.3s;
     }
 
     .extra-links a:hover {
-      color: #d3ffe0;
+      color: #d8ffe8;
     }
 
   </style>
 </head>
+
 <body>
+
   <div class="register-container">
-    <div class="logo">🌿</div>
-    <h1>Registro BIOCAZADORES</h1>
-    <p>Crea tu cuenta para comenzar a monitorear tus flores y sensores.</p>
+
+    <!-- LOGO -->
+    <img src="{% static 'core/img/logo.png' %}" alt="Logo Biocazadores" class="logo-img">
+
+    <p>Regístrate y forma parte de la nueva generación de <strong>cultivos inteligentes</strong> con sensores avanzados y monitoreo en tiempo real.</p>
 
     <form method="POST" action="{% url 'register' %}">
       {% csrf_token %}
@@ -140,19 +172,24 @@
       <input type="text" name="usuario" placeholder="Nombre de usuario" required>
       <input type="password" name="password" placeholder="Contraseña" required>
       <input type="password" name="confirm_password" placeholder="Confirmar contraseña" required>
+
       <button type="submit">Crear cuenta</button>
     </form>
 
     <div class="extra-links">
       <p>¿Ya tienes cuenta? <a href="{% url 'home' %}">Inicia sesión aquí</a></p>
     </div>
+
   </div>
-    <script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register("{% static 'service-worker.js' %}")
-    .then(reg => console.log('✅ Service Worker registrado:', reg.scope))
-    .catch(err => console.log('❌ Error al registrar Service Worker:', err));
-}
-</script>
+
+  <!-- Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register("{% static 'service-worker.js' %}")
+        .then(reg => console.log("SW registrado:", reg.scope))
+        .catch(err => console.error("Error SW:", err));
+    }
+  </script>
+
 </body>
 </html>

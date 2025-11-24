@@ -3,215 +3,279 @@
 <html lang="es">
 <head>
   <link rel="manifest" href="{% static 'manifest.json' %}">
-  <meta name="theme-color" content="#2ecc71">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2ecc71" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BIOCAZADORES 🌿 | Monitoreo Ambiental Inteligente</title>
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family:'Poppins', sans-serif;
-      background: linear-gradient(135deg, rgba(45,200,90,0.8), rgba(15,70,40,0.8)),
-                  url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1600&q=80');
-      background-size:cover;
-      background-position:center;
-      color:#fff;
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      scroll-behavior:smooth;
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
     }
 
-    /* HEADER */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background:
+        linear-gradient(135deg, rgba(45,200,90,0.85), rgba(15,70,40,0.85)),
+        url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ------------------ HEADER ------------------ */
     header {
-      background: rgba(0,0,0,0.85);
-      padding: 15px 60px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(15, 45, 20, 0.95);
+      z-index: 1000;
+      padding: 20px 40px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.6);
+
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-      position: sticky;
-      top:0;
-      z-index:100;
+      transition: background 0.3s ease;
     }
-    .logo-container img {
-      width: 60px;
-      height: auto;
-      margin-right:10px;
-      vertical-align: middle;
+    header:hover {
+      background: rgba(15, 45, 20, 1);
     }
+
     .logo-text {
-      font-size:2rem;
-      font-weight:700;
-      color:#a9ffcb;
-      text-shadow:0 2px 8px rgba(0,0,0,0.5);
-      display:inline-block;
-      vertical-align:middle;
+      color: #a8e063;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #8fcf72;
+      user-select: none;
     }
+
     nav ul {
-      display:flex;
-      list-style:none;
-      gap:15px;
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      padding: 0;
+      margin: 0;
     }
+
     nav ul li a {
-      text-decoration:none;
-      color:#fff;
-      font-weight:500;
-      padding:8px 15px;
-      border-radius:10px;
-      transition: all 0.3s ease;
-    }
-    nav ul li a:hover {
-      background:#27ae60;
-      transform:scale(1.05);
+      color: #e0e0e0;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 0 4px transparent;
+      user-select: none;
+      font-size: 1rem;
     }
 
-    /* HERO */
+    nav ul li a:hover,
+    nav ul li a.active {
+      background-color: #a8e063;
+      color: #121212;
+      box-shadow: 0 0 8px #a8e063cc;
+      transform: translateY(-2px);
+    }
+
+    /* ------------------ HERO ------------------ */
     .hero {
-      text-align:center;
-      padding:120px 20px 80px 20px;
-      background:rgba(0,0,0,0.5);
+      margin: 110px auto 80px;
+      max-width: 1100px;
+      padding: 70px 30px 70px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.55);
+      border-radius: 24px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+      animation: fadeIn 1.2s ease forwards;
     }
+
     .hero h1 {
-      font-size:3.2rem;
-      margin-bottom:20px;
-      color:#b9ffcb;
-      text-shadow:0 4px 12px rgba(0,0,0,0.5);
-      animation: fadeInDown 1s ease forwards;
+      font-size: 3.6rem;
+      font-weight: 700;
+      color: #b9ffcb;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.7);
+      margin-bottom: 28px;
+      line-height: 1.15;
+      user-select: none;
     }
+
     .hero p {
-      font-size:1.2rem;
-      color:#eaffeb;
-      max-width:900px;
-      margin:0 auto 30px auto;
-      line-height:1.8;
-      animation: fadeInUp 1s ease forwards;
-    }
-    .btn {
-      background:#2ecc71;
-      color:#fff;
-      padding:12px 30px;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:600;
-      transition: all 0.3s ease;
-      display:inline-block;
-      animation: fadeIn 1.5s ease forwards;
-    }
-    .btn:hover {
-      background:#3ff28d;
-      transform:translateY(-3px);
-      box-shadow:0 4px 12px rgba(0,0,0,0.3);
+      font-size: 1.3rem;
+      color: #eaffeb;
+      max-width: 840px;
+      margin: 0 auto 40px;
+      line-height: 1.85;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      user-select: none;
     }
 
-    /* SECCIONES */
-    section {
-      width:90%;
-      max-width:1200px;
-      margin:50px auto;
-      background:rgba(0,0,0,0.6);
-      padding:50px;
-      border-radius:25px;
-      box-shadow:0 10px 30px rgba(0,0,0,0.4);
-      animation: fadeIn 1s ease forwards;
-    }
-    section h2 {
-      text-align:center;
-      margin-bottom:25px;
-      color:#b9ffcb;
-      font-size:2rem;
-      text-shadow:0 2px 8px rgba(0,0,0,0.4);
-    }
-    section p {
-      text-align:center;
-      color:#eaffeb;
-      font-size:1.1rem;
-      line-height:1.8;
-      margin-bottom:30px;
-    }
-
-    /* CARDS */
-    .cards {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:25px;
-      margin-top:20px;
-    }
-    .card {
-      background:rgba(255,255,255,0.1);
-      border-radius:15px;
-      padding:25px;
-      text-align:center;
+    .hero .btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #2ecc71, #27ae60);
+      color: #fff;
+      padding: 16px 38px;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 1.15rem;
+      text-decoration: none;
+      box-shadow: 0 4px 18px rgba(46,204,113,0.5);
       transition: all 0.4s ease;
-      box-shadow:0 5px 20px rgba(0,0,0,0.3);
+      user-select: none;
     }
+    .hero .btn:hover {
+      background: linear-gradient(90deg, #3ff28d, #2ecc71);
+      transform: translateY(-4px) scale(1.07);
+      box-shadow: 0 6px 28px rgba(46,204,113,0.7);
+    }
+
+    /* ------------------ SECCIONES ------------------ */
+    section {
+      width: 90%;
+      max-width: 1200px;
+      margin: 50px auto;
+      background: rgba(0,0,0,0.65);
+      padding: 50px 40px;
+      border-radius: 25px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.45);
+      animation: fadeIn 1s ease forwards;
+      user-select: none;
+    }
+
+    section h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #b9ffcb;
+      font-size: 2.3rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+      font-weight: 700;
+    }
+
+    section p {
+      text-align: center;
+      color: #eaffeb;
+      font-size: 1.15rem;
+      line-height: 1.9;
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+
+    /* ------------------ CARDS ------------------ */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 30px 25px;
+      text-align: center;
+      transition: all 0.35s ease;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.35);
+      cursor: default;
+    }
+
     .card:hover {
-      background:rgba(255,255,255,0.2);
-      transform:translateY(-8px);
-      box-shadow:0 10px 25px rgba(0,0,0,0.5);
+      background: rgba(255,255,255,0.22);
+      transform: translateY(-10px);
+      box-shadow: 0 14px 38px rgba(0,0,0,0.55);
     }
+
     .card h3 {
-      color:#a9ffcb;
-      margin-bottom:15px;
-      font-size:1.4rem;
+      color: #a9ffcb;
+      margin-bottom: 18px;
+      font-size: 1.5rem;
+      font-weight: 600;
+      user-select: text;
     }
+
     .card p {
-      color:#f1fff3;
-      font-size:1rem;
-      line-height:1.6;
+      color: #e3f1dc;
+      font-size: 1rem;
+      line-height: 1.7;
+      font-weight: 400;
+      user-select: text;
     }
 
-    /* ESTADÍSTICAS */
+    /* ------------------ ESTADÍSTICAS ------------------ */
     .stats {
-      display:flex;
-      justify-content:space-around;
-      flex-wrap:wrap;
-      gap:30px;
-      margin-top:30px;
-    }
-    .stat {
-      background:rgba(255,255,255,0.15);
-      padding:30px;
-      border-radius:20px;
-      flex:1 1 200px;
-      text-align:center;
-      transition: all 0.3s ease;
-    }
-    .stat h3 {
-      font-size:2.2rem;
-      color:#a9ffcb;
-      margin-bottom:10px;
-    }
-    .stat p {
-      font-size:1rem;
-      color:#eaffeb;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 36px;
+      margin-top: 40px;
+      user-select: none;
     }
 
-    /* FOOTER */
+    .stat {
+      background: rgba(255,255,255,0.2);
+      padding: 36px 28px;
+      border-radius: 22px;
+      flex: 1 1 200px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      transition: background 0.3s ease;
+    }
+
+    .stat:hover {
+      background: rgba(255,255,255,0.3);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.45);
+    }
+
+    .stat h3 {
+      font-size: 2.6rem;
+      color: #a9ffcb;
+      margin-bottom: 12px;
+      font-weight: 700;
+      text-shadow: 0 0 6px #6ae87a;
+      transition: color 0.3s ease;
+    }
+
+    .stat p {
+      font-size: 1.05rem;
+      color: #eaffeb;
+      font-weight: 500;
+    }
+
+    /* ------------------ FOOTER ------------------ */
     footer {
       background: rgba(0,0,0,0.9);
-      padding:20px 0;
-      text-align:center;
-      font-size:0.9rem;
-      color:#c1ffc7;
-      letter-spacing:1px;
+      padding: 22px 0;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #c1ffc7;
+      letter-spacing: 1.1px;
+      user-select: none;
+      font-weight: 500;
+      text-shadow: 0 0 8px #549d5a88;
     }
 
-    /* ANIMACIONES */
+    /* ------------------ ANIMACIONES ------------------ */
     @keyframes fadeInDown {
-      from { opacity:0; transform:translateY(-50px); }
-      to { opacity:1; transform:translateY(0); }
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     @keyframes fadeInUp {
-      from { opacity:0; transform:translateY(50px); }
-      to { opacity:1; transform:translateY(0); }
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     @keyframes fadeIn {
-      from { opacity:0; }
-      to { opacity:1; }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
@@ -219,108 +283,59 @@
 
   <!-- HEADER -->
   <header>
-    <div class="logo-container">
-      <span class="logo-text">BIOCAZADORES 🌿</span>
-    </div>
+  <div class="logo-container" style="display: flex; align-items: center; gap: 12px;">
+  <img src="{% static 'core/img/logo.png' %}" alt="Logo Biocazadores" style="height: 50px; width: auto; user-select: none;" />
+  <span class="logo-text">BIOCAZADORES </span>
+</div>
+
     <nav>
       <ul>
-        <li><a href="{% url 'home' %}">Inicio</a></li>
-        <li><a href="{% url 'proyecto' %}">Proyecto</a></li>
-        <li><a href="{% url 'sensores' %}">sensores</a></li>
-        <li><a href="{% url 'contacto' %}">contacto</a></li>
+        <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Inicio</a></li>
+        <li><a href="{% url 'proyecto' %}" class="{% if 'proyecto' in request.path %}active{% endif %}">Proyecto</a></li>
+        <li><a href="{% url 'sensores' %}" class="{% if 'sensores' in request.path %}active{% endif %}">Sensores</a></li>
+        <li><a href="{% url 'contacto' %}" class="{% if 'contacto' in request.path %}active{% endif %}">Contacto</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- HERO MEJORADO -->
-<section class="hero">
-  <h1>Monitoreo Inteligente de Flores</h1>
-  <p>
-    Proyecto desarrollado por estudiantes de la <strong>Universidad Tecnológica de Santa Catarina</strong>.  
-    <br>BIOCAZADORES 🌿 utiliza sensores de humedad, temperatura y luz para analizar el estado de tus plantas,  
-    enviando alertas e indicaciones mediante nuestra aplicación móvil IoT.
-  </p>
-  <a href="#proyecto" class="btn">Descubre el Proyecto</a>
-</section>
-
-<style>
-.hero {
-  text-align: center;
-  padding: 140px 20px 100px 20px;
-  background: rgba(0,0,0,0.55);
-  border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-  margin: 50px auto;
-  max-width: 1100px;
-  animation: fadeIn 1.2s ease forwards;
-}
-
-.hero h1 {
-  font-size: 3.5rem;
-  margin-bottom: 25px;
-  color: #b9ffcb;
-  text-shadow: 0 4px 15px rgba(0,0,0,0.7);
-  font-weight: 700;
-  line-height: 1.2;
-  animation: fadeInDown 1s ease forwards;
-}
-
-.hero p {
-  font-size: 1.25rem;
-  color: #eaffeb;
-  max-width: 800px;
-  margin: 0 auto 35px auto;
-  line-height: 1.8;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.5);
-  animation: fadeInUp 1s ease forwards;
-}
-
-.hero .btn {
-  background: linear-gradient(90deg, #2ecc71, #27ae60);
-  color: #fff;
-  padding: 14px 32px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 1.1rem;
-  text-decoration: none;
-  box-shadow: 0 4px 15px rgba(46,204,113,0.5);
-  transition: all 0.4s ease;
-  animation: fadeIn 1.5s ease forwards;
-}
-
-.hero .btn:hover {
-  background: linear-gradient(90deg, #3ff28d, #2ecc71);
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 6px 25px rgba(46,204,113,0.7);
-}
-</style>
+  <!-- HERO -->
+  <section class="hero" role="banner" aria-label="Descripción del proyecto Biocazadores">
+    <h1>Monitoreo Inteligente de Flores</h1>
+    <p>
+      Proyecto desarrollado por estudiantes de la <strong>Universidad Tecnológica de Santa Catarina</strong>.
+      <br />
+      BIOCAZADORES 🌿 utiliza sensores de humedad, temperatura y luz para analizar el estado de tus plantas,
+      enviando alertas e indicaciones mediante nuestra aplicación móvil IoT.
+    </p>
+    <a href="#proyecto" class="btn" role="button" aria-label="Descubre el Proyecto">Descubre el Proyecto</a>
+  </section>
 
   <!-- PROYECTO -->
-  <section id="proyecto">
-    <h2>Sobre el Proyecto</h2>
+  <section id="proyecto" aria-labelledby="proyecto-title">
+    <h2 id="proyecto-title">Sobre el Proyecto</h2>
     <p>
       El sistema BIOCAZADORES 🌿 combina la tecnología de sensores ambientales con una aplicación móvil para el cuidado de plantas y flores.
       A través de la medición en tiempo real de la humedad y temperatura, se ofrecen recomendaciones precisas para mantener el equilibrio vital de las especies vegetales monitoreadas.
     </p>
-    <div class="cards">
-      <div class="card">
+    <div class="cards" role="list">
+      <article class="card" role="listitem" tabindex="0" aria-label="Sensor de temperatura">
         <h3>🌡️ Sensor de Temperatura</h3>
         <p>Monitorea la temperatura ambiental para detectar condiciones que puedan afectar el desarrollo de la flor.</p>
-      </div>
-      <div class="card">
+      </article>
+      <article class="card" role="listitem" tabindex="0" aria-label="Sensor de humedad">
         <h3>💧 Sensor de Humedad</h3>
         <p>Evalúa el nivel de humedad del suelo o ambiente, ayudando a determinar cuándo regar las plantas.</p>
-      </div>
-      <div class="card">
+      </article>
+      <article class="card" role="listitem" tabindex="0" aria-label="Aplicación móvil">
         <h3>📱 Aplicación Móvil</h3>
         <p>Recibe los datos en tiempo real, genera alertas y brinda consejos para el cuidado de cada especie monitoreada.</p>
-      </div>
-      <div class="card">
+      </article>
+      <article class="card" role="listitem" tabindex="0" aria-label="Conectividad IoT">
         <h3>☁️ Conectividad IoT</h3>
         <p>Los sensores transmiten los datos a la nube, facilitando su análisis y visualización desde cualquier lugar.</p>
-      </div>
+      </article>
     </div>
-    <div class="stats">
+    <div class="stats" aria-live="polite" aria-atomic="true" aria-relevant="text">
       <div class="stat">
         <h3 id="count1">0</h3>
         <p>Flores Monitoreadas</p>
@@ -337,47 +352,53 @@
   </section>
 
   <!-- EQUIPO -->
-  <section>
-    <h2>Equipo de Desarrollo</h2>
+  <section aria-labelledby="equipo-title">
+    <h2 id="equipo-title">Equipo de Desarrollo</h2>
     <p>
       Un grupo multidisciplinario de estudiantes comprometidos con la tecnología y la preservación ambiental:
     </p>
-    <div class="cards">
-      <div class="card">
+    <div class="cards" role="list">
+      <article class="card" role="listitem" tabindex="0" aria-label="Programación">
         <h3>👩‍💻 Programación</h3>
         <p>Encargados del desarrollo del software en Laravel, Python y la integración con sensores IoT.</p>
-      </div>
-      <div class="card">
+      </article>
+      <article class="card" role="listitem" tabindex="0" aria-label="Investigación Ambiental">
         <h3>🌾 Investigación Ambiental</h3>
         <p>Responsables del análisis biológico y el estudio de especies florales monitoreadas.</p>
-      </div>
-      <div class="card">
+      </article>
+      <article class="card" role="listitem" tabindex="0" aria-label="Diseño de la App">
         <h3>📊 Diseño de la App</h3>
         <p>Desarrollo de la interfaz móvil intuitiva que presenta los datos en tiempo real.</p>
-      </div>
+      </article>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    © 2025 BIOCAZADORES 🌿 | Universidad Tecnológica de Santa Catarina  
-    <br> Innovación y tecnología al servicio de la naturaleza 🌺
+    © 2025 BIOCAZADORES 🌿 | Universidad Tecnológica de Santa Catarina<br />
+    Innovación y tecnología al servicio de la naturaleza 🌺
   </footer>
 
+  <!-- SCRIPTS -->
   <script>
-    // Contadores animados
+    // Contadores animados con requestAnimationFrame para mejor fluidez
     function animateValue(id, start, end, duration) {
       let obj = document.getElementById(id);
-      let range = end - start;
-      let current = start;
-      let increment = end > start ? 1 : -1;
-      let stepTime = Math.abs(Math.floor(duration / range));
-      let timer = setInterval(function() {
-        current += increment;
-        obj.textContent = current;
-        if (current == end) clearInterval(timer);
-      }, stepTime);
+      let startTime = null;
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const progress = timestamp - startTime;
+        const val = Math.min(Math.floor(progress / duration * (end - start) + start), end);
+        obj.textContent = val;
+        if (val < end) {
+          window.requestAnimationFrame(step);
+        }
+      }
+
+      window.requestAnimationFrame(step);
     }
+
     animateValue("count1", 0, 150, 2000);
     animateValue("count2", 0, 35, 2000);
     animateValue("count3", 0, 420, 2000);
@@ -386,11 +407,10 @@
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register("{% static 'service-worker.js' %}")
-        .then(reg => console.log('✅ Service Worker registrado:', reg.scope))
-        .catch(err => console.log('❌ Error al registrar Service Worker:', err));
+        .then(reg => console.log('Service Worker registrado:', reg.scope))
+        .catch(err => console.log('Error al registrar Service Worker:', err));
     }
   </script>
 
 </body>
 </html>
-

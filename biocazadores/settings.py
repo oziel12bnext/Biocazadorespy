@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "fallback_secret_key")
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -60,12 +60,12 @@ ASGI_APPLICATION = 'biocazadores.asgi.application'
 # Base de datos usando variables de entorno de .env
 DATABASES = {
     'default': {
-        'ENGINE': f"django.db.backends.{os.environ.get('DATABASE_ENGINE', 'sqlite3')}",
-        'NAME': os.environ.get('DATABASE_NAME', BASE_DIR / "db.sqlite3"),
-        'USER': os.environ.get('DATABASE_USERNAME', ''),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD', ''),
-        'HOST': os.environ.get('DATABASE_HOST', '127.0.0.1'),
-        'PORT': os.environ.get('DATABASE_PORT', 5432),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'nombre_de_tu_base',
+        'USER': 'tu_usuario',
+        'PASSWORD': 'tu_password',
+        'HOST': 'localhost',  # o la IP de tu servidor DB
+        'PORT': '5432',
     }
 }
 

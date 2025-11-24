@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>BioCazadores 🌿 Sensores</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <style>
     body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;  /* Ocupa toda la altura de la ventana */
+        padding-top: 120px; /* espacio para header fijo */
+        margin: 0;
         font-family: 'Poppins', sans-serif;
         background: #121212;
         color: #e0e0e0;
-        margin: 0;
-        padding-top: 120px; /* espacio para header fijo */
+    }
+
+    main {
+        flex: 1 0 auto; /* Crece para ocupar espacio disponible */
     }
 
     /* ------------------ HEADER ------------------ */
@@ -25,7 +32,6 @@
         padding: 20px 40px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 
-        /* Alinear elementos */
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -127,6 +133,7 @@
 
     /* ------------------ FOOTER ------------------ */
     footer {
+        flex-shrink: 0;
         text-align: center;
         padding: 30px 20px;
         background: #1b1b1b;
@@ -165,37 +172,49 @@
     </nav>
 </header>
 
-<section class="sensor-grid">
+<main>
+    <section class="sensor-grid">
 
-    <div class="sensor-card">
-        <h3>🌡️ Temperatura</h3>
-        <p>Mide la temperatura ambiental, esencial para el crecimiento saludable de tus plantas.</p>
-        <p class="sensor-data" id="temp">-- °C</p>
-        <div class="sensor-bar"><div id="temp-bar"></div></div>
+        <div class="sensor-card">
+            <h3>🌡️ Temperatura</h3>
+            <p>Mide la temperatura ambiental, esencial para el crecimiento saludable de tus plantas.</p>
+            <p class="sensor-data" id="temp">-- °C</p>
+            <div class="sensor-bar"><div id="temp-bar"></div></div>
+        </div>
+
+        <div class="sensor-card">
+            <h3>💧 Humedad</h3>
+            <p>Monitorea la humedad del suelo para prevenir estrés hídrico o exceso de agua.</p>
+            <p class="sensor-data" id="hum">-- %</p>
+            <div class="sensor-bar"><div id="hum-bar"></div></div>
+        </div>
+
+        <div class="sensor-card">
+            <h3>☀️ Luz</h3>
+            <p>Mide la intensidad de luz que reciben las plantas para optimizar fotosíntesis.</p>
+            <p class="sensor-data" id="light">-- lx</p>
+            <div class="sensor-bar"><div id="light-bar"></div></div>
+        </div>
+
+        <div class="sensor-card">
+            <h3>🧪 PH del Suelo</h3>
+            <p>Controla la acidez o alcalinidad del suelo para mantener nutrientes balanceados.</p>
+            <p class="sensor-data" id="ph">--</p>
+            <div class="sensor-bar"><div id="ph-bar"></div></div>
+        </div>
+
+    </section>
+</main>
+
+<footer>
+    <div style="background: linear-gradient(to right, #1e1e1e, #2c2c2c); padding: 15px 10px; color: #fff;">
+        <div class="container text-center">
+            <h4 style="color: #a8e063; margin-bottom: 8px; font-size: 1.2rem;">BIOCAZADORES 🌿</h4>
+            <p style="font-size: 0.9rem;">Innovación y tecnología al servicio de la naturaleza</p>
+            <p style="font-size: 0.7rem; color: #888; margin-top: 6px;">© 2025 BioCazadores 🌿 | Todos los derechos reservados</p>
+        </div>
     </div>
-
-    <div class="sensor-card">
-        <h3>💧 Humedad</h3>
-        <p>Monitorea la humedad del suelo para prevenir estrés hídrico o exceso de agua.</p>
-        <p class="sensor-data" id="hum">-- %</p>
-        <div class="sensor-bar"><div id="hum-bar"></div></div>
-    </div>
-
-    <div class="sensor-card">
-        <h3>☀️ Luz</h3>
-        <p>Mide la intensidad de luz que reciben las plantas para optimizar fotosíntesis.</p>
-        <p class="sensor-data" id="light">-- lx</p>
-        <div class="sensor-bar"><div id="light-bar"></div></div>
-    </div>
-
-    <div class="sensor-card">
-        <h3>🧪 PH del Suelo</h3>
-        <p>Controla la acidez o alcalinidad del suelo para mantener nutrientes balanceados.</p>
-        <p class="sensor-data" id="ph">--</p>
-        <div class="sensor-bar"><div id="ph-bar"></div></div>
-    </div>
-
-</section>
+</footer>
 
 <script>
 function generarDatos() {
@@ -217,16 +236,6 @@ function generarDatos() {
 setInterval(generarDatos, 3000);
 generarDatos();
 </script>
-
-<footer>
-    <div style="background: linear-gradient(to right, #1e1e1e, #2c2c2c); padding: 40px 20px; color: #fff;">
-        <div class="container text-center">
-            <h4 style="color: #a8e063; margin-bottom: 15px;">BIOCAZADORES 🌿</h4>
-            <p>Innovación y tecnología al servicio de la naturaleza</p>
-            <p style="font-size:0.85rem; color:#888; margin-top:10px;">© 2025 BioCazadores 🌿 | Todos los derechos reservados</p>
-        </div>
-    </div>
-</footer>
 
 </body>
 </html>

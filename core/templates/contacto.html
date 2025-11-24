@@ -2,77 +2,106 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BIOCAZADORES 🌿 | Contacto</title>
-  <link rel="manifest" href="{% static 'manifest.json' %}">
-  <meta name="theme-color" content="#27ae60">
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="manifest" href="{% static 'manifest.json' %}" />
+  <meta name="theme-color" content="#27ae60" />
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   <style>
     /* ---------- ESTILOS GENERALES ---------- */
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, rgba(39,174,96,0.85), rgba(0,0,0,0.8)),
-                  url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1600&q=80');
+      background: linear-gradient(
+          135deg,
+          rgba(39, 174, 96, 0.85),
+          rgba(0, 0, 0, 0.8)
+        ),
+        url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1600&q=80');
       background-size: cover;
       background-position: center;
       color: #fff;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      padding-top: 80px; /* espacio para header fijo */
     }
 
-    /* ---------- ENCABEZADO ---------- */
+    /* ------------------ HEADER ------------------ */
     header {
-      background: rgba(0, 0, 0, 0.9);
-      padding: 15px 50px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      background: #1e1e1e;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 40px;
+
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Logo container */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-container img {
+      width: 50px;
+      height: auto;
     }
 
     .logo-text {
+      color: #a8e063;
       font-size: 1.8rem;
       font-weight: 700;
-      color: #a9ffcb;
-      letter-spacing: 1px;
+      user-select: none;
     }
 
     nav ul {
-      display: flex;
       list-style: none;
-      gap: 20px;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 25px;
     }
 
     nav ul li a {
-      color: #fff;
+      color: #e0e0e0;
       text-decoration: none;
-      padding: 8px 15px;
-      border-radius: 10px;
-      transition: all 0.3s ease;
       font-weight: 500;
+      transition: 0.3s;
+      padding: 5px 10px;
+      border-radius: 5px;
     }
 
     nav ul li a:hover,
     nav ul li a.active {
-      background: #27ae60;
-      transform: scale(1.05);
+      background: #a8e063;
+      color: #121212;
     }
 
     /* ---------- SECCIÓN DE CONTACTO ---------- */
     section.contacto {
       background: rgba(0, 0, 0, 0.7);
-      margin: 70px auto;
+      margin: 20px auto 70px;
       padding: 60px 40px;
       border-radius: 25px;
       width: 90%;
       max-width: 900px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
       text-align: center;
+      flex-grow: 1;
     }
 
     section.contacto h1 {
@@ -109,7 +138,8 @@
       color: #bfffcf;
     }
 
-    input, textarea {
+    input,
+    textarea {
       padding: 12px 15px;
       border: none;
       border-radius: 10px;
@@ -120,7 +150,8 @@
       outline: none;
     }
 
-    input:focus, textarea:focus {
+    input:focus,
+    textarea:focus {
       background: rgba(255, 255, 255, 0.2);
       box-shadow: 0 0 8px rgba(39, 174, 96, 0.7);
     }
@@ -167,8 +198,14 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* ---------- INFORMACIÓN ---------- */
@@ -204,52 +241,69 @@
   </style>
 </head>
 <body>
-
   <!-- HEADER -->
   <header>
-    <span class="logo-text">BIOCAZADORES 🌿</span>
-    <nav>
-      <ul>
-        <li><a href="{% url 'home' %}">Inicio</a></li>
-        <li><a href="{% url 'proyecto' %}">Proyecto</a></li>
-        <li><a href="{% url 'sensores' %}">Sensores</a></li>
-        <li><a href="{% url 'contacto' %}" class="active">Contacto</a></li>
-      </ul>
-    </nav>
+    <div class="header-container">
+      <div class="logo-container">
+        <img src="{% static 'img/logo.png' %}" alt="Logo BIOCAZADORES" />
+        <span class="logo-text">BIOCAZADORES 🌿</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="{% url 'home' %}">Inicio</a></li>
+          <li><a href="{% url 'proyecto' %}">Proyecto</a></li>
+          <li><a href="{% url 'sensores' %}">Sensores</a></li>
+          <li><a href="{% url 'contacto' %}" class="active">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <!-- FORMULARIO DE CONTACTO -->
   <section class="contacto">
     <h1>Contáctanos</h1>
-    <p>¿Tienes dudas, comentarios o te gustaría colaborar con BIOCAZADORES?  
-    Completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.</p>
+    <p>
+      ¿Tienes dudas, comentarios o te gustaría colaborar con BIOCAZADORES?
+      Completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.
+    </p>
 
     <div id="success-message">✅ ¡Gracias por tu mensaje! Nos pondremos en contacto pronto.</div>
 
     <form id="contactForm">
       <div>
         <label for="nombre">Nombre Completo</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
       </div>
 
       <div>
         <label for="correo">Correo Electrónico</label>
-        <input type="email" id="correo" name="correo" placeholder="tuemail@ejemplo.com" required>
+        <input
+          type="email"
+          id="correo"
+          name="correo"
+          placeholder="tuemail@ejemplo.com"
+          required
+        />
       </div>
 
       <div>
         <label for="asunto">Asunto</label>
-        <input type="text" id="asunto" name="asunto" placeholder="Motivo del mensaje" required>
+        <input type="text" id="asunto" name="asunto" placeholder="Motivo del mensaje" required />
       </div>
 
       <div>
         <label for="telefono">Teléfono (opcional)</label>
-        <input type="tel" id="telefono" name="telefono" placeholder="+52 81 0000 0000">
+        <input type="tel" id="telefono" name="telefono" placeholder="+52 81 0000 0000" />
       </div>
 
       <div>
         <label for="mensaje">Mensaje</label>
-        <textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje aquí..." required></textarea>
+        <textarea
+          id="mensaje"
+          name="mensaje"
+          placeholder="Escribe tu mensaje aquí..."
+          required
+        ></textarea>
       </div>
 
       <button type="submit" class="btn">Enviar Mensaje</button>
@@ -263,8 +317,9 @@
 
   <!-- FOOTER -->
   <footer>
-    © 2025 BIOCAZADORES 🌿 | Universidad Tecnológica de Santa Catarina  
-    <br> Conectando la tecnología con la naturaleza 🌺
+    © 2025 BIOCAZADORES 🌿 | Universidad Tecnológica de Santa Catarina
+    <br />
+    Conectando la tecnología con la naturaleza 🌺
   </footer>
 
   <!-- SCRIPT -->
@@ -272,13 +327,12 @@
     const form = document.getElementById('contactForm');
     const success = document.getElementById('success-message');
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
       success.style.display = 'block';
       form.reset();
-      setTimeout(() => success.style.display = 'none', 4000);
+      setTimeout(() => (success.style.display = 'none'), 4000);
     });
   </script>
-
 </body>
 </html>
