@@ -1,1 +1,1 @@
-web: gunicorn biocazadores.wsgi
+echo web: gunicorn biocazadores.wsgi > Procfile

@@ -4,6 +4,8 @@ Django settings for biocazadores project.
 
 from pathlib import Path
 import os
+import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -59,15 +61,13 @@ ASGI_APPLICATION = 'biocazadores.asgi.application'
 
 # Base de datos usando variables de entorno de .env
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'nombre_de_tu_base',
-        'USER': 'tu_usuario',
-        'PASSWORD': 'tu_password',
-        'HOST': 'localhost',  # o la IP de tu servidor DB
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=os.getenv("DATABASE_URL"),
+        conn_max_age=1800,
+        ssl_require=True
+    )
 }
+
 
 # Validación de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
@@ -83,15 +83,16 @@ TIME_ZONE = 'America/Mexico_City'
 USE_I18N = True
 USE_TZ = True
 
-# Archivos estáticos
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-
-# Carpeta de archivos estáticos
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # Usa Path directamente
+    BASE_DIR / "static",
 ]
+
 
 # Campo primario por defecto
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ALLOWED_HOSTS = ["*",]
+
