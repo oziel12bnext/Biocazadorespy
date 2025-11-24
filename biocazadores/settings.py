@@ -4,8 +4,12 @@ Django settings for biocazadores project.
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 import dj_database_url
 
+
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -13,7 +17,28 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "fallback_secret_key")
 
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "") != "False"
+
+if DEBUG:
+    # Base de datos local (SQLite)
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
+else:
+    # Producción (Railway PostgreSQL)
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "HOST": os.environ.get("postgres.railway.internal"),
+            "PORT": os.environ.get("5432"),
+            "USER": os.environ.get("postgres"),
+            "PASSWORD": os.environ.get("UmSxFMvCfVOEhDiXETTBpzlqhNoJJMMI"),
+            "NAME": os.environ.get("railway"),
+        }
+    }
 
 ALLOWED_HOSTS = ["*"]
 
@@ -60,16 +85,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'biocazadores.wsgi.application'
 ASGI_APPLICATION = 'biocazadores.asgi.application'
-
-# Base de datos usando variables de entorno de .env
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv("DATABASE_URL"),
-        conn_max_age=1800,
-        ssl_require=True
-    )
-}
-
 
 # Validación de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
