@@ -60,14 +60,25 @@ TEMPLATES = [
 WSGI_APPLICATION = 'biocazadores.wsgi.application'
 ASGI_APPLICATION = 'biocazadores.asgi.application'
 
-DATABASES = {
-    "default": dj_database_url.config(
-           default=os.environ.get("DATABASE_URL"),
-        conn_max_age=600,
-        ssl_require=True
-    )
-}
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
+if DATABASE_URL:
+    # Producción (Railway)
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=True
+        )
+    }
+else:
+    # Local (tu PC) → usar SQLite
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 # Validación de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
