@@ -87,12 +87,12 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+    os.path.join (BASE_DIR,"core/static")
+    ]
 
 
 # Campo primario por defecto
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ALLOWED_HOSTS = ["*",]
+ALLOWED_HOSTS = ["web-production-16869.up.railway.app",]
 
