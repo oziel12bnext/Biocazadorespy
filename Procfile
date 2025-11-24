@@ -1,1 +1,1 @@
- web: gunicorn biocazadores.wsgi > Procfile
+ web: python manage.py collectstatic &&  gunicorn biocazadores.wsgi > Procfile
