@@ -103,5 +103,5 @@ STORAGES = {
 # Campo primario por defecto
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ALLOWED_HOSTS = ["localhost""web-production-16869.up.railway.app"]
+ALLOWED_HOSTS = ["localhost","web-production-16869.up.railway.app",]
 
