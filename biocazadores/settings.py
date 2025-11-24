@@ -17,28 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "fallback_secret_key")
 
-DEBUG = os.environ.get("DEBUG", "") != "False"
-
-if DEBUG:
-    # Base de datos local (SQLite)
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
-else:
-    # Producción (Railway PostgreSQL)
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "HOST": os.environ.get("postgres.railway.internal"),
-            "PORT": os.environ.get("5432"),
-            "USER": os.environ.get("postgres"),
-            "PASSWORD": os.environ.get("UmSxFMvCfVOEhDiXETTBpzlqhNoJJMMI"),
-            "NAME": os.environ.get("railway"),
-        }
-    }
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -85,6 +64,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'biocazadores.wsgi.application'
 ASGI_APPLICATION = 'biocazadores.asgi.application'
+
+ DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 # Validación de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
