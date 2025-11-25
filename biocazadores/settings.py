@@ -60,20 +60,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'biocazadores.wsgi.application'
 ASGI_APPLICATION = 'biocazadores.asgi.application'
 
-DATABASE_URL = os.environ.get("DATABASE_URL")
-
-if DATABASE_URL:
-    # Producción (Railway)
-    DATABASES = {
-        "default": dj_database_url.config(
-            default=DATABASE_URL,
-            conn_max_age=600,
-            ssl_require=True
-        )
-    }
-else:
-    # Local (tu PC) → usar SQLite
-    DATABASES = {
+DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",
@@ -112,6 +99,5 @@ STORAGES = {
 # Campo primario por defecto
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ALLOWED_HOSTS = ["localhost","web-production-a5582.up.railway.app",]
+ALLOWED_HOSTS = ["localhost","https://web-production-a5582.up.railway.app/",]
 
-CSRF_TRUSTED_ORIGINS = ["https://web-production-a5582.up.railway.app",]
