@@ -103,3 +103,7 @@ STORAGES = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Evita que Railway falle con collectstatic
+os.environ.setdefault("DISABLE_COLLECTSTATIC", "1")
+
