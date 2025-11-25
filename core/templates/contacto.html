@@ -49,23 +49,10 @@
       align-items: center;
     }
 
-    /* Logo container */
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .logo-container img {
-      width: 50px;
-      height: auto;
-    }
-
     .logo-text {
       color: #a8e063;
       font-size: 1.8rem;
       font-weight: 700;
-      user-select: none;
     }
 
     nav ul {
@@ -244,10 +231,7 @@
   <!-- HEADER -->
   <header>
     <div class="header-container">
-      <div class="logo-container">
-        <img src="{% static 'img/logo.png' %}" alt="Logo BIOCAZADORES" />
-        <span class="logo-text">BIOCAZADORES 🌿</span>
-      </div>
+      <span class="logo-text">BIOCAZADORES 🌿</span>
       <nav>
         <ul>
           <li><a href="{% url 'home' %}">Inicio</a></li>

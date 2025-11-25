@@ -5,6 +5,10 @@ Django settings for biocazadores project.
 from pathlib import Path
 import os
 import dj_database_url
+import dj_database_url
+from dotenv import load_dotenv
+
+load_dotenv()  # Carga el archivo .env en entorno local
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "fallback_secret_key")
 
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = ["*"]
 
@@ -114,4 +118,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ALLOWED_HOSTS = ["localhost","web-production-a5582.up.railway.app",]
 
-CSRF_TRUSTED_ORIGINS = ["https://web-production-a5582.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = ["https://*","https://web-production-a5582.up.railway.app"]
