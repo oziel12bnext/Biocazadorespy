@@ -34,61 +34,61 @@
     }
 
     /* Estilos del botón hamburguesa */
-.menu-toggle {
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 28px;
-  height: 22px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  z-index: 1100;
-}
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 22px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 1100;
+    }
 
-.menu-toggle .bar {
-  height: 3px;
-  width: 100%;
-  background-color: #a8e063;
-  border-radius: 2px;
-  transition: 0.3s;
-}
+    .menu-toggle .bar {
+      height: 3px;
+      width: 100%;
+      background-color: #a8e063;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
 
-/* Responsive: mostrar menú hamburguesa y ocultar menú normal */
-@media (max-width: 768px) {
-  nav ul {
-    position: fixed;
-    top: 70px; /* para que quede debajo del header */
-    right: -100%; /* fuera de la pantalla */
-    width: 220px;
-    height: calc(100% - 70px);
-    background: rgba(15, 45, 20, 0.95);
-    flex-direction: column;
-    padding-top: 20px;
-    gap: 20px;
-    transition: right 0.3s ease;
-    box-shadow: -4px 0 12px rgba(0,0,0,0.6);
-    border-radius: 0 0 0 14px;
-  }
+    /* Responsive: mostrar menú hamburguesa y ocultar menú normal */
+    @media (max-width: 768px) {
+      nav ul {
+        position: fixed;
+        top: 70px; /* para que quede debajo del header */
+        right: -100%; /* fuera de la pantalla */
+        width: 220px;
+        height: calc(100% - 70px);
+        background: rgba(15, 45, 20, 0.95);
+        flex-direction: column;
+        padding-top: 20px;
+        gap: 20px;
+        transition: right 0.3s ease;
+        box-shadow: -4px 0 12px rgba(0,0,0,0.6);
+        border-radius: 0 0 0 14px;
+        z-index: 1050;
+      }
 
-  nav ul.active {
-    right: 0; /* menú visible */
-  }
+      nav ul.active {
+        right: 0; /* menú visible */
+      }
 
-  nav ul li {
-    margin: 0;
-  }
+      nav ul li {
+        margin: 0;
+      }
 
-  nav ul li a {
-    font-size: 1.2rem;
-    padding: 10px 25px;
-  }
+      nav ul li a {
+        font-size: 1.2rem;
+        padding: 10px 25px;
+      }
 
-  .menu-toggle {
-    display: flex;
-  }
-}
-
+      .menu-toggle {
+        display: flex;
+      }
+    }
 
     /* ------------------ HEADER ------------------ */
     header {
@@ -96,7 +96,7 @@
       top: 0;
       width: 100%;
       background: rgba(15, 45, 20, 0.95);
-      z-index: 1000;
+      z-index: 1100;
       padding: 20px 40px;
       box-shadow: 0 4px 18px rgba(0,0,0,0.6);
 
@@ -124,6 +124,7 @@
       gap: 30px;
       padding: 0;
       margin: 0;
+      align-items: center;
     }
 
     nav ul li a {
@@ -136,6 +137,7 @@
       box-shadow: 0 0 4px transparent;
       user-select: none;
       font-size: 1rem;
+      display: inline-block;
     }
 
     nav ul li a:hover,
@@ -330,7 +332,7 @@
       from { opacity: 0; transform: translateY(50px); }
       to { opacity: 1; transform: translateY(0); }
     }
-        @keyframes fadeIn {
+    @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
@@ -407,7 +409,6 @@
         gap: 20px;
       }
     }
-
   </style>
   
 </head>
@@ -415,28 +416,17 @@
 
   <!-- HEADER -->
   <header>
-  <div class="logo-container" style="display: flex; align-items: center; gap: 12px;">
-  <img src="{% static 'core/img/logo.png' %}" alt="Logo Biocazadores" style="height: 50px; width: auto; user-select: none;" />
-  <span class="logo-text">BIOCAZADORES </span>
-</div>
+    <!-- Botón hamburguesa a la izquierda -->
+    <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-navigation">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
 
-
-  <!-- Botón hamburguesa -->
-  <button class="menu-toggle" aria-label="Abrir menú">
-    <span class="bar"></span>
-    <span class="bar"></span>
-    <span class="bar"></span>
-  </button>
-
-  <nav>
-    <ul>
-      <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Inicio</a></li>
-      <li><a href="{% url 'proyecto' %}" class="{% if 'proyecto' in request.path %}active{% endif %}">Proyecto</a></li>
-      <li><a href="{% url 'sensores' %}" class="{% if 'sensores' in request.path %}active{% endif %}">Sensores</a></li>
-      <li><a href="{% url 'contacto' %}" class="{% if 'contacto' in request.path %}active{% endif %}">Contacto</a></li>
-    </ul>
-  </nav>
-</header>
+    <div class="logo-container" style="display: flex; align-items: center; gap: 12px;">
+      <img src="{% static 'core/img/logo.png' %}" alt="Logo Biocazadores" style="height: 50px; width: auto; user-select: none;" />
+      <span class="logo-text">BIOCAZADORES </span>
+    </div>
 
     <nav>
       <ul>
