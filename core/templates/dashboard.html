@@ -33,51 +33,58 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
+   /* Coloca el botón hamburguesa fijo a la izquierda y arriba */
 .menu-toggle {
-  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  display: none; /* se muestra solo en móvil */
   flex-direction: column;
-  justify-content: space-around;
-  width: 30px;
-  height: 25px;
+  justify-content: space-between;
+  width: 28px;
+  height: 22px;
   background: transparent;
   border: none;
   cursor: pointer;
-  z-index: 1100;
-  padding: 4px;
-  transition: transform 0.3s ease;
+  z-index: 1200; /* mayor que header para que quede encima */
 }
 
-.menu-toggle:focus {
-  outline: 2px solid #a8e063;
-  outline-offset: 2px;
-}
-
-.menu-toggle .bar {
-  height: 4px;
+/* Ajusta el header para que no tenga padding en la izquierda, porque el menú hamburguesa está fijo */
+header {
+  position: fixed;
+  top: 0;
   width: 100%;
-  background-color: #a8e063;
-  border-radius: 3px;
-  transition: all 0.3s ease;
-  transform-origin: 4px 2px;
+  background: rgba(15, 45, 20, 0.95);
+  z-index: 1100;
+  padding: 20px 40px 20px 80px; /* más espacio a la izquierda para no tapar botón */
+  box-shadow: 0 4px 18px rgba(0,0,0,0.6);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s ease;
 }
 
-/* Animación al abrir menú - transformar barras a cruz */
-.menu-toggle.active .bar:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-
-.menu-toggle.active .bar:nth-child(2) {
-  opacity: 0;
-}
-
-.menu-toggle.active .bar:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -6px);
-}
-
-/* Responsive: mostrar menú hamburguesa y ocultar menú normal */
+/* Responsive: mostrar el menú hamburguesa y ocultar menú normal */
 @media (max-width: 768px) {
   .menu-toggle {
     display: flex;
+  }
+
+  nav ul {
+    position: fixed;
+    top: 70px;
+    right: -100%;
+    width: 220px;
+    height: calc(100% - 70px);
+    background: rgba(15, 45, 20, 0.95);
+    flex-direction: column;
+    padding-top: 20px;
+    gap: 20px;
+    transition: right 0.3s ease;
+    box-shadow: -4px 0 12px rgba(0,0,0,0.6);
+    border-radius: 0 0 0 14px;
+    z-index: 1150;
   }
 }
 
@@ -406,18 +413,18 @@
 <body>
 
   <!-- HEADER -->
-  <header>
-    <!-- Botón hamburguesa a la izquierda -->
-    <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-navigation">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
+<header>
+  <!-- Botón hamburguesa a la izquierda -->
+  <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-navigation">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
 
-    <div class="logo-container" style="display: flex; align-items: center; gap: 12px;">
-      <img src="{% static 'core/img/logo.png' %}" alt="Logo Biocazadores" style="height: 50px; width: auto; user-select: none;" />
-      <span class="logo-text">BIOCAZADORES </span>
-    </div>
+  <div class="logo-container" style="display: flex; align-items: center; gap: 12px;">
+    <img src="{% static 'core/img/logo.png' %}" alt="Logo Biocazadores" style="height: 50px; width: auto; user-select: none;" />
+    <span class="logo-text">BIOCAZADORES </span>
+  </div>
 
     <nav>
       <ul>
@@ -536,20 +543,18 @@
   </script>
 <script>
   const menuToggle = document.querySelector('.menu-toggle');
-const navMenu = document.querySelector('nav ul');
+  const navMenu = document.querySelector('nav ul');
 
-menuToggle.addEventListener('click', () => {
-  navMenu.classList.toggle('active');
-  menuToggle.classList.toggle('active'); // Añadido para animación
-
-  // Cambiar aria-label para accesibilidad
-  if (navMenu.classList.contains('active')) {
-    menuToggle.setAttribute('aria-label', 'Cerrar menú');
-  } else {
-    menuToggle.setAttribute('aria-label', 'Abrir menú');
-  }
-});
-
+  menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+    
+    // Cambiar aria-label para accesibilidad
+    if (navMenu.classList.contains('active')) {
+      menuToggle.setAttribute('aria-label', 'Cerrar menú');
+    } else {
+      menuToggle.setAttribute('aria-label', 'Abrir menú');
+    }
+  });
 </script>
   <script>
     if ('serviceWorker' in navigator) {
