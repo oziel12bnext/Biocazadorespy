@@ -44,6 +44,10 @@
         font-weight: 700;
     }
 
+    nav {
+        position: relative;
+    }
+
     nav ul {
         list-style: none;
         padding: 0;
@@ -59,12 +63,81 @@
         transition: 0.3s;
         padding: 5px 10px;
         border-radius: 5px;
+        display: block;
     }
 
     nav ul li a:hover,
     nav ul li a.active {
         background: #a8e063;
         color: #121212;
+    }
+
+    /* BOTÓN HAMBURGUESA */
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 28px;
+        height: 22px;
+        cursor: pointer;
+    }
+
+    .menu-toggle span {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: #a8e063;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+    }
+
+    /* Animación hamburguesa al abrir */
+    .menu-toggle.open span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.open span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 768px) {
+        header {
+            flex-direction: row;
+            padding: 15px 20px;
+        }
+        nav ul {
+            position: fixed;
+            top: 80px; /* debajo del header */
+            right: 0;
+            background: #1e1e1e;
+            flex-direction: column;
+            width: 220px;
+            height: calc(100vh - 80px);
+            padding-top: 40px;
+            gap: 15px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            box-shadow: -4px 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        nav ul.open {
+            transform: translateX(0);
+        }
+
+        nav ul li a {
+            font-size: 1.1rem;
+            padding: 12px 20px;
+        }
+
+        .menu-toggle {
+            display: flex;
+        }
     }
 
     /* ------------------ SENSORES ------------------ */
@@ -162,8 +235,14 @@
 
 <header class="animate__animated animate__fadeInDown">
     <h1>BIOCAZADORES 🌿</h1>
+    <!-- Botón hamburguesa -->
+    <div class="menu-toggle" id="menuToggle" aria-label="Abrir menú de navegación" aria-expanded="false" role="button" tabindex="0">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
     <nav>
-        <ul>
+        <ul id="navList">
             <li><a href="{% url 'dashboard' %}">Inicio</a></li>
             <li><a href="{% url 'proyecto' %}">Proyecto</a></li>
             <li><a href="{% url 'sensores' %}" class="active">Sensores</a></li>
@@ -217,24 +296,44 @@
 </footer>
 
 <script>
-function generarDatos() {
-    let temp = (20 + Math.random()*10).toFixed(1);
-    let hum = (40 + Math.random()*40).toFixed(1);
-    let light = (200 + Math.random()*800).toFixed(0);
-    let ph = (5 + Math.random()*3).toFixed(2);
+    // Toggle menú hamburguesa
+    const menuToggle = document.getElementById('menuToggle');
+    const navList = document.getElementById('navList');
 
-    document.getElementById('temp').textContent = temp + ' °C';
-    document.getElementById('hum').textContent = hum + ' %';
-    document.getElementById('light').textContent = light + ' lx';
-    document.getElementById('ph').textContent = ph;
+    function toggleMenu() {
+        menuToggle.classList.toggle('open');
+        navList.classList.toggle('open');
+        const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', !expanded);
+    }
 
-    document.getElementById('temp-bar').style.width = ((temp-20)/10*100).toFixed(1) + '%';
-    document.getElementById('hum-bar').style.width = ((hum-40)/40*100).toFixed(1) + '%';
-    document.getElementById('light-bar').style.width = ((light-200)/800*100).toFixed(1) + '%';
-    document.getElementById('ph-bar').style.width = ((ph-5)/3*100).toFixed(1) + '%';
-}
-setInterval(generarDatos, 3000);
-generarDatos();
+    menuToggle.addEventListener('click', toggleMenu);
+    menuToggle.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleMenu();
+        }
+    });
+
+    // Función para actualizar datos sensores cada 3 segundos
+    function generarDatos() {
+        let temp = (20 + Math.random()*10).toFixed(1);
+        let hum = (40 + Math.random()*40).toFixed(1);
+        let light = (200 + Math.random()*800).toFixed(0);
+        let ph = (5 + Math.random()*3).toFixed(2);
+
+        document.getElementById('temp').textContent = temp + ' °C';
+        document.getElementById('hum').textContent = hum + ' %';
+        document.getElementById('light').textContent = light + ' lx';
+        document.getElementById('ph').textContent = ph;
+
+        document.getElementById('temp-bar').style.width = ((temp-20)/10*100).toFixed(1) + '%';
+        document.getElementById('hum-bar').style.width = ((hum-40)/40*100).toFixed(1) + '%';
+        document.getElementById('light-bar').style.width = ((light-200)/800*100).toFixed(1) + '%';
+        document.getElementById('ph-bar').style.width = ((ph-5)/3*100).toFixed(1) + '%';
+    }
+    setInterval(generarDatos, 3000);
+    generarDatos();
 </script>
 
 </body>

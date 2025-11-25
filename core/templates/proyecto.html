@@ -58,6 +58,9 @@
             font-family: 'Poppins', sans-serif;
             user-select: none;
         }
+        nav {
+            position: relative;
+        }
         nav ul {
             list-style: none;
             padding: 0;
@@ -73,11 +76,76 @@
             padding: 5px 10px;
             border-radius: 5px;
             font-family: 'Poppins', sans-serif;
+            display: block;
         }
         nav ul li a:hover,
         nav ul li a.active {
             background: #a8e063;
             color: #121212;
+        }
+
+        /* BOTÓN HAMBURGUESA */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 28px;
+            height: 22px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: #a8e063;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Animación hamburguesa al abrir */
+        .menu-toggle.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 768px) {
+            nav ul {
+                position: fixed;
+                top: 80px; /* debajo del header */
+                right: 0;
+                background: #1e1e1e;
+                flex-direction: column;
+                width: 220px;
+                height: calc(100vh - 80px);
+                padding-top: 40px;
+                gap: 15px;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                box-shadow: -4px 0 15px rgba(0, 0, 0, 0.5);
+            }
+
+            nav ul.open {
+                transform: translateX(0);
+            }
+
+            nav ul li a {
+                font-size: 1.1rem;
+                padding: 12px 20px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
         }
 
         /* MAIN */
@@ -206,13 +274,21 @@
 <body>
 
 <header class="animate__animated animate__fadeInDown">
-      <div class="header-container">
+    <div class="header-container">
         <div class="logo-container" style="display: flex; align-items: center; gap: 12px;">
             <img src="{% static 'core/img/logo.png' %}" alt="Logo Biocazadores" style="height: 50px; width: auto; user-select: none;" />
             <h1 style="margin: 0; font-weight: 700; font-family: 'Poppins', sans-serif; color: #a8e063; user-select: none;">BIOCAZADORES</h1>
         </div>
+
+        <!-- Botón hamburguesa -->
+        <div class="menu-toggle" id="menuToggle" aria-label="Abrir menú de navegación" aria-expanded="false" role="button" tabindex="0">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
         <nav>
-            <ul>
+            <ul id="navList">
                 <li><a href="{% url 'dashboard' %}">Inicio</a></li>
                 <li><a href="{% url 'proyecto' %}" class="active">Proyecto</a></li>
                 <li><a href="{% url 'sensores' %}">Sensores</a></li>
@@ -266,6 +342,27 @@
         <p>Unimos tecnología y naturaleza para cuidar tus plantas de forma inteligente.</p>
     </div>
 </footer>
+
+<script>
+    // Toggle menú hamburguesa
+    const menuToggle = document.getElementById('menuToggle');
+    const navList = document.getElementById('navList');
+
+    function toggleMenu() {
+        menuToggle.classList.toggle('open');
+        navList.classList.toggle('open');
+        const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', !expanded);
+    }
+
+    menuToggle.addEventListener('click', toggleMenu);
+    menuToggle.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleMenu();
+        }
+    });
+</script>
 
 </body>
 </html>
