@@ -33,6 +33,63 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
+    /* Estilos del botón hamburguesa */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.menu-toggle .bar {
+  height: 3px;
+  width: 100%;
+  background-color: #a8e063;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* Responsive: mostrar menú hamburguesa y ocultar menú normal */
+@media (max-width: 768px) {
+  nav ul {
+    position: fixed;
+    top: 70px; /* para que quede debajo del header */
+    right: -100%; /* fuera de la pantalla */
+    width: 220px;
+    height: calc(100% - 70px);
+    background: rgba(15, 45, 20, 0.95);
+    flex-direction: column;
+    padding-top: 20px;
+    gap: 20px;
+    transition: right 0.3s ease;
+    box-shadow: -4px 0 12px rgba(0,0,0,0.6);
+    border-radius: 0 0 0 14px;
+  }
+
+  nav ul.active {
+    right: 0; /* menú visible */
+  }
+
+  nav ul li {
+    margin: 0;
+  }
+
+  nav ul li a {
+    font-size: 1.2rem;
+    padding: 10px 25px;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+}
+
+
     /* ------------------ HEADER ------------------ */
     header {
       position: fixed;
@@ -363,6 +420,24 @@
   <span class="logo-text">BIOCAZADORES </span>
 </div>
 
+
+  <!-- Botón hamburguesa -->
+  <button class="menu-toggle" aria-label="Abrir menú">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+
+  <nav>
+    <ul>
+      <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Inicio</a></li>
+      <li><a href="{% url 'proyecto' %}" class="{% if 'proyecto' in request.path %}active{% endif %}">Proyecto</a></li>
+      <li><a href="{% url 'sensores' %}" class="{% if 'sensores' in request.path %}active{% endif %}">Sensores</a></li>
+      <li><a href="{% url 'contacto' %}" class="{% if 'contacto' in request.path %}active{% endif %}">Contacto</a></li>
+    </ul>
+  </nav>
+</header>
+
     <nav>
       <ul>
         <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Inicio</a></li>
@@ -478,7 +553,21 @@
     animateValue("count2", 0, 35, 2000);
     animateValue("count3", 0, 420, 2000);
   </script>
+<script>
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navMenu = document.querySelector('nav ul');
 
+  menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+    
+    // Cambiar aria-label para accesibilidad
+    if (navMenu.classList.contains('active')) {
+      menuToggle.setAttribute('aria-label', 'Cerrar menú');
+    } else {
+      menuToggle.setAttribute('aria-label', 'Abrir menú');
+    }
+  });
+</script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register("{% static 'service-worker.js' %}")
