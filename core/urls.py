@@ -4,7 +4,6 @@ from .views import register_view
 
 
 urlpatterns = [
-      path('register/', register_view, name='register'),
     path('', views.home, name='home'),               # Página principal
     path('home/', views.home, name='home'),
     path('register/', views.register, name='register'),
