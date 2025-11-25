@@ -33,62 +33,53 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Estilos del botón hamburguesa */
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 28px;
-      height: 22px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      z-index: 1100;
-    }
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+  padding: 4px;
+  transition: transform 0.3s ease;
+}
 
-    .menu-toggle .bar {
-      height: 3px;
-      width: 100%;
-      background-color: #a8e063;
-      border-radius: 2px;
-      transition: 0.3s;
-    }
+.menu-toggle:focus {
+  outline: 2px solid #a8e063;
+  outline-offset: 2px;
+}
 
-    /* Responsive: mostrar menú hamburguesa y ocultar menú normal */
-    @media (max-width: 768px) {
-      nav ul {
-        position: fixed;
-        top: 70px; /* para que quede debajo del header */
-        right: -100%; /* fuera de la pantalla */
-        width: 220px;
-        height: calc(100% - 70px);
-        background: rgba(15, 45, 20, 0.95);
-        flex-direction: column;
-        padding-top: 20px;
-        gap: 20px;
-        transition: right 0.3s ease;
-        box-shadow: -4px 0 12px rgba(0,0,0,0.6);
-        border-radius: 0 0 0 14px;
-        z-index: 1050;
-      }
+.menu-toggle .bar {
+  height: 4px;
+  width: 100%;
+  background-color: #a8e063;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  transform-origin: 4px 2px;
+}
 
-      nav ul.active {
-        right: 0; /* menú visible */
-      }
+/* Animación al abrir menú - transformar barras a cruz */
+.menu-toggle.active .bar:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
 
-      nav ul li {
-        margin: 0;
-      }
+.menu-toggle.active .bar:nth-child(2) {
+  opacity: 0;
+}
 
-      nav ul li a {
-        font-size: 1.2rem;
-        padding: 10px 25px;
-      }
+.menu-toggle.active .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
 
-      .menu-toggle {
-        display: flex;
-      }
-    }
+/* Responsive: mostrar menú hamburguesa y ocultar menú normal */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+}
 
     /* ------------------ HEADER ------------------ */
     header {
@@ -545,18 +536,20 @@
   </script>
 <script>
   const menuToggle = document.querySelector('.menu-toggle');
-  const navMenu = document.querySelector('nav ul');
+const navMenu = document.querySelector('nav ul');
 
-  menuToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-    
-    // Cambiar aria-label para accesibilidad
-    if (navMenu.classList.contains('active')) {
-      menuToggle.setAttribute('aria-label', 'Cerrar menú');
-    } else {
-      menuToggle.setAttribute('aria-label', 'Abrir menú');
-    }
-  });
+menuToggle.addEventListener('click', () => {
+  navMenu.classList.toggle('active');
+  menuToggle.classList.toggle('active'); // Añadido para animación
+
+  // Cambiar aria-label para accesibilidad
+  if (navMenu.classList.contains('active')) {
+    menuToggle.setAttribute('aria-label', 'Cerrar menú');
+  } else {
+    menuToggle.setAttribute('aria-label', 'Abrir menú');
+  }
+});
+
 </script>
   <script>
     if ('serviceWorker' in navigator) {
