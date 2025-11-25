@@ -319,8 +319,12 @@ footer {
 <body>
   <!-- HEADER -->
   <header>
-    <div class="header-container">
+  <div class="header-container" style="display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <img src="{% static 'core/img/logo.png' %}" alt="Logo BioCazadores" style="height: 50px; width: auto; user-select: none;" />
       <span class="logo-text">BIOCAZADORES 🌿</span>
+    </div>
+
       <!-- Botón hamburguesa -->
       <div class="menu-toggle" id="menuToggle" aria-label="Abrir menú de navegación" aria-expanded="false" role="button" tabindex="0">
         <span></span>
