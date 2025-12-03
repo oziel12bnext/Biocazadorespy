@@ -2,8 +2,12 @@
 Django settings for biocazadores project.
 """
 
-from pathlib import Path
 import os
+import dj_database_url
+from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()  # Carga variables de .env si existen (para local)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,9 +15,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "fallback_secret_key")
 
+# IMPORTANTE: En producción idealmente esto debe ser False, pero para debuguear déjalo en True por ahora
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+# 1. CORRECCIÓN: Unificamos los hosts permitidos
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "web-production-a5582.up.railway.app", "*"]
+
+# 2. CORRECCIÓN CRÍTICA: Esto arregla la pantalla amarilla (Error 403)
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-a5582.up.railway.app'
+]
 
 # Aplicaciones instaladas
 INSTALLED_APPS = [
@@ -24,7 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'whitenoise.runserver_nostatic',
-    'core',  # Tu app principal
+    'core',
 ]
 
 # Middleware
@@ -44,7 +55,7 @@ ROOT_URLCONF = 'biocazadores.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # Carpeta de templates extra si quieres
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -59,19 +70,21 @@ TEMPLATES = [
 WSGI_APPLICATION = 'biocazadores.wsgi.application'
 ASGI_APPLICATION = 'biocazadores.asgi.application'
 
+# 3. CORRECCIÓN BASE DE DATOS: Híbrida (SQLite local / Postgres Railway)
 DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
+    'default': dj_database_url.config(
+        # Si no encuentra DATABASE_URL (ej. en local), usa db.sqlite3
+        default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'),
+        conn_max_age=600
+    )
+}
 
 # Validación de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+   # {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+   # {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+   # {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+   # {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 # Internacionalización
@@ -80,23 +93,18 @@ TIME_ZONE = 'America/Mexico_City'
 USE_I18N = True
 USE_TZ = True
 
+# Archivos Estáticos
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-
 STATICFILES_DIRS = [
-    os.path.join (BASE_DIR,"core/static")
-    ]
+    os.path.join(BASE_DIR, "core/static")
+]
 
 STORAGES = {
-    # ...
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
 
-# Campo primario por defecto
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-ALLOWED_HOSTS = ["localhost","web-production-a5582.up.railway.app",]
-
